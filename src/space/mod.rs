@@ -254,11 +254,11 @@ mod tests{
     fn test_mapper() {
         let layout = KernelLayout {
             text: 8000_1000,
-            rodata: 8000_2000,
-            data: 8000_3000,
-            sbss: 8000_4000,
-            ebss: 8000_5000,
-            boot: 8000_6000,
+            // rodata: 8000_2000,
+            // data: 8000_3000,
+            // sbss: 8000_4000,
+            // ebss: 8000_5000,
+            // boot: 8000_6000,
             end: 8000_8000,
         };
         let mut address1 = AddressSpace::<Sv39, Sv39Manager>::new();
@@ -278,49 +278,49 @@ mod tests{
     #[derive(Debug)]
     pub struct KernelLayout {
         text: usize,
-        rodata: usize,
-        data: usize,
-        sbss: usize,
-        ebss: usize,
-        boot: usize,
+        // rodata: usize,
+        // data: usize,
+        // sbss: usize,
+        // ebss: usize,
+        // boot: usize,
         end: usize,
     }
 
     impl KernelLayout {
-        /// 非零初始化，避免 bss。
-        pub const INIT: Self = Self {
-            text: usize::MAX,
-            rodata: usize::MAX,
-            data: usize::MAX,
-            sbss: usize::MAX,
-            ebss: usize::MAX,
-            boot: usize::MAX,
-            end: usize::MAX,
-        };
+        // /// 非零初始化，避免 bss。
+        // pub const INIT: Self = Self {
+        //     text: usize::MAX,
+        //     rodata: usize::MAX,
+        //     data: usize::MAX,
+        //     sbss: usize::MAX,
+        //     ebss: usize::MAX,
+        //     boot: usize::MAX,
+        //     end: usize::MAX,
+        // };
 
-        /// 定位内核布局。
-        #[inline]
-        pub fn locate() -> Self {
-            extern "C" {
-                fn __start();
-                fn __rodata();
-                fn __data();
-                fn __sbss();
-                fn __ebss();
-                fn __boot();
-                fn __end();
-            }
+        // /// 定位内核布局。
+        // #[inline]
+        // pub fn locate() -> Self {
+        //     extern "C" {
+        //         fn __start();
+        //         fn __rodata();
+        //         fn __data();
+        //         fn __sbss();
+        //         fn __ebss();
+        //         fn __boot();
+        //         fn __end();
+        //     }
 
-            Self {
-                text: __start as _,
-                rodata: __rodata as _,
-                data: __data as _,
-                sbss: __sbss as _,
-                ebss: __ebss as _,
-                boot: __boot as _,
-                end: __end as _,
-            }
-        }
+        //     Self {
+        //         text: __start as _,
+        //         rodata: __rodata as _,
+        //         data: __data as _,
+        //         sbss: __sbss as _,
+        //         ebss: __ebss as _,
+        //         boot: __boot as _,
+        //         end: __end as _,
+        //     }
+        // }
 
         /// 内核起始地址。
         #[inline]
@@ -334,11 +334,11 @@ mod tests{
             self.end
         }
 
-        /// 内核静态二进制长度。
-        #[inline]
-        pub const fn len(&self) -> usize {
-            self.end - self.text
-        }
+        // /// 内核静态二进制长度。
+        // #[inline]
+        // pub const fn len(&self) -> usize {
+        //     self.end - self.text
+        // }
 
     }
 
@@ -349,19 +349,19 @@ mod tests{
         // 创建新地址空间。
         let addressspace = AddressSpace::<Sv39, Sv39Manager>::new();
         // 地址空间根页表的物理页号。
-        let ppn = (& addressspace).root_ppn();
+        let _ppn = (& addressspace).root_ppn();
         // 地址空间根页表
-        let root = (& addressspace).root();
+        let _root = (& addressspace).root();
         // 向地址空间增加映射关系。
         let mut address1 = AddressSpace::<Sv39, Sv39Manager>::new();
-        let pages = 2;
+        let _pages = 2;
         let layout = KernelLayout {
             text: 8000_1000,
-            rodata: 8000_2000,
-            data: 8000_3000,
-            sbss: 8000_4000,
-            ebss: 8000_5000,
-            boot: 8000_6000,
+            // rodata: 8000_2000,
+            // data: 8000_3000,
+            // sbss: 8000_4000,
+            // ebss: 8000_5000,
+            // boot: 8000_6000,
             end: 8000_8000,
         };
         let memory = 1000_0000;

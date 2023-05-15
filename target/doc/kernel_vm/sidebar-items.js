@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"externcrate":[["page_table",""]],"struct":[["AddressSpace","地址空间。"]],"trait":[["PageManager","物理页管理。"]]};
